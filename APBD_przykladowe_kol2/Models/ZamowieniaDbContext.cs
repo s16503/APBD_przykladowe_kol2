@@ -10,7 +10,12 @@ namespace APBD_przykladowe_kol2.Models
     public class ZamowieniaDbContext : DbContext
     {
         public DbSet<Klient> Klienci { get; set; }
-        // public DbSet<Pracownik> Pracownicy { get; set; }
+        public DbSet<Pracownik> Pracownicy { get; set; }
+        public DbSet<Zamowienie> Zamowienia { get; set; }
+        public DbSet<WyrobCukierniczy> WyrobyCukiernicze { get; set; }
+
+
+
 
         public ZamowieniaDbContext()
         {
@@ -29,6 +34,12 @@ namespace APBD_przykladowe_kol2.Models
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfiguration(new KlientEfConfiguration());
+            modelBuilder.ApplyConfiguration(new PracownikEfConfiguration());
+            modelBuilder.ApplyConfiguration(new ZamowienieEfConfiguration());
+            modelBuilder.ApplyConfiguration(new WyrobCukierniczyEfConfiguration());
+
+            
+
 
             //modelbuilder.entity<pracownik>((builder) =>
             //{

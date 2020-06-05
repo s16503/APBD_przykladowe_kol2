@@ -8,22 +8,23 @@ using System.Threading.Tasks;
 
 namespace APBD_przykladowe_kol2.Configurations
 {
-    public class KlientEfConfiguration : IEntityTypeConfiguration<Klient>
+    public class PracownikEfConfiguration : IEntityTypeConfiguration<Pracownik>
     {
-        public void Configure(EntityTypeBuilder<Klient> builder)
+        public void Configure(EntityTypeBuilder<Pracownik> builder)
         {
             //base.OnModelCreating(builder);
 
-            builder.HasKey(e => e.IdKlient);
-            builder.Property(e => e.IdKlient).ValueGeneratedOnAdd();
+            builder.HasKey(e => e.IdPracownik);
+            builder.Property(e => e.IdPracownik).ValueGeneratedOnAdd();
             builder.Property(e => e.Imie).IsRequired().HasMaxLength(50);
             builder.Property(e => e.Nazwisko).IsRequired().HasMaxLength(60);
 
             builder.HasMany(e => e.Zamowienia)
-                    .WithOne(e => e.Klient)
-                    .HasForeignKey(e => e.IdKlienta);
+                    .WithOne(e => e.Pracownik)
+                    .HasForeignKey(e => e.IdPracownika);
         }
 
-       
+
     }
 }
+

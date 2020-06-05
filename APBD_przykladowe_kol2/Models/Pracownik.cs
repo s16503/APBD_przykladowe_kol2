@@ -1,10 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace APBD_przykladowe_kol2.Models
 {
-    public class Klient
+    public class Pracownik
     {
-        public int IdKlient { get; set; }
+        public int IdPracownik { get; set; }
         public string Imie { get; set; }
         public string Nazwisko { get; set; }
         public ICollection<Zamowienie> Zamowienia { get; set; }
