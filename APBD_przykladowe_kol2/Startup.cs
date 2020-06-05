@@ -28,7 +28,7 @@ namespace APBD_przykladowe_kol2
         {
             services.AddDbContext<ZamowieniaDbContext>(options =>
             {
-                options.UseSqlServer("Data Source = db - mssql; Initial Catalog = s16503; Integrated Security = True;");
+                options.UseSqlServer("Data Source=db-mssql;Initial Catalog=s16503;Integrated Security=True;");
             });
 
             services.AddControllers();

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using APBD_przykladowe_kol2.Configurations;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace APBD_przykladowe_kol2.Models
     public class ZamowieniaDbContext : DbContext
     {
         public DbSet<Klient> Klienci { get; set; }
-        public DbSet<Pracownik> Pracownicy { get; set; }
+        // public DbSet<Pracownik> Pracownicy { get; set; }
 
         public ZamowieniaDbContext()
         {
@@ -17,7 +18,7 @@ namespace APBD_przykladowe_kol2.Models
         }
 
         public ZamowieniaDbContext(DbContextOptions options)
-            :base(options)
+            : base(options)
         {
 
         }
@@ -27,68 +28,68 @@ namespace APBD_przykladowe_kol2.Models
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Klient>((builder) =>
-            {
-                builder.HasKey(e => e.IdKlient);
-                builder.Property(e => e.IdKlient).ValueGeneratedOnAdd();
-                builder.Property(e => e.Imie).IsRequired();
-                builder.Property(e => e.Nazwisko).IsRequired();
+            modelBuilder.ApplyConfiguration(new KlientEfConfiguration());
 
-                builder.HasMany(e => e.Zamowienia)
-                        .WithOne(e => e.Klient)
-                        .HasForeignKey(e => e.IdKlienta);
+            //modelbuilder.entity<pracownik>((builder) =>
+            //{
+            //    builder.haskey(e => e.idpracownik);
+            //    builder.property(e => e.idpracownik).valuegeneratedonadd();
+            //    builder.property(e => e.imie).isrequired();
+            //    builder.property(e => e.nazwisko).isrequired();
 
-            });
+            //    builder.hasmany(e => e.zamowienia)
+            //            .withone(e => e.pracownik)
+            //            .hasforeignkey(e => e.idpracownika);
 
-            modelBuilder.Entity<Pracownik>((builder) =>
-            {
-                builder.HasKey(e => e.IdPracownik);
-                builder.Property(e => e.IdPracownik).ValueGeneratedOnAdd();
-                builder.Property(e => e.Imie).IsRequired();
-                builder.Property(e => e.Nazwisko).IsRequired();
+            //});
 
-                builder.HasMany(e => e.Zamowienia)
-                        .WithOne(e => e.Pracownik)
-                        .HasForeignKey(e => e.IdPracownika);
 
-            });
-            
+            //modelbuilder.entity<wyrobcukierniczy>((builder) =>
+            //{
+            //    builder.haskey(e => e.idwyrobucukierniczego);
+            //    builder.property(e => e.idwyrobucukierniczego).valuegeneratedonadd();
+            //    builder.property(e => e.nazwa).isrequired();
+            //    builder.property(e => e.cenazaszt).isrequired();
+            //    builder.property(e => e.typ).isrequired();
 
-                 modelBuilder.Entity<WyrobCukierniczy>((builder) =>
-                 {
-                     builder.HasKey(e => e.IdWyrobuCukierniczego);
-                     //builder.HasMany(e => e.Zamowienia_WyrobyCukiernicze)
-                     //.WithOne(e => e.WyrobCukierniczy)
-                     //.HasForeignKey(e=>e.IdWyrobuCukierniczego);
-                     
 
-                 });
+            //    builder.hasmany(e => e.zamowienia_wyrobycukiernicze)
+            //    .withone(e => e.wyrobcukierniczy)
+            //    .hasforeignkey(e => e.idwyrobucukierniczego);
 
-           
 
-            modelBuilder.Entity<Zamowienie>((builder) =>
-            {
-                builder.HasKey(e=>e.IdZamowienia);
-            
+            //});
 
-                //builder.HasMany(e => e.Zamowienia_WyrobyCukiernicze)
-                //    .WithOne(e => e.Zamowienie)
-                //    .HasForeignKey(e => e.IdZamowienia);
 
-            });
 
-            modelBuilder.Entity<Zamowienie_WyrobCukierniczy>((builder) =>
-            {
-                builder.HasNoKey();
+            //modelbuilder.entity<zamowienie>((builder) =>
+            //{
+            //    builder.haskey(e => e.idzamowienia);
+            //    builder.property(e => e.idzamowienia).valuegeneratedonadd();
+            //    builder.property(e => e.dataprzyjecia).isrequired();
 
-                builder.HasOne(e => e.Zamowienie);
-                builder.HasOne(e => e.WyrobCukierniczy);
+            //    builder.hasmany(e => e.zamowienia_wyrobycukiernicze)
+            //       .withone(e => e.zamowienie)
+            //       .hasforeignkey(e => e.idzamowienia);
 
-            });
+            //});
+
+            //modelbuilder.entity<zamowienie_wyrobcukierniczy>((builder) =>
+            //{
+            //    builder.haskey(e => e.idwyrobucukierniczego);
+            //    builder.haskey(e => e.idzamowienia);
+
+            //    builder.hasnokey();
+
+            //    builder.property(e => e.ilosc).isrequired();
+
+            //    builder.hasone(e => e.zamowienie);
+            //    builder.hasone(e => e.wyrobcukierniczy);
+
+            //});
 
 
 
         }
-
     }
 }
