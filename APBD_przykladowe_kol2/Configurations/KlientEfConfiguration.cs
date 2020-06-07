@@ -22,8 +22,18 @@ namespace APBD_przykladowe_kol2.Configurations
             builder.HasMany(e => e.Zamowienia)
                     .WithOne(e => e.Klient)
                     .HasForeignKey(e => e.IdKlienta);
+
+            var list = new List<Klient>();
+            int id = 1;
+            list.Add(new Klient {IdKlient=id, Imie = "Jan",Nazwisko = "Kowalski"});
+            list.Add(new Klient { IdKlient = id+1, Imie = "Andrzej", Nazwisko = "Nowak" });
+            list.Add(new Klient { IdKlient = id+2, Imie = "Łucja", Nazwisko = "Kawka" });
+
+            builder.HasData(list);
+
+
         }
 
-       
+
     }
 }

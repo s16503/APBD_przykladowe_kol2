@@ -13,6 +13,8 @@ namespace APBD_przykladowe_kol2.Models
         public DbSet<Pracownik> Pracownicy { get; set; }
         public DbSet<Zamowienie> Zamowienia { get; set; }
         public DbSet<WyrobCukierniczy> WyrobyCukiernicze { get; set; }
+        public DbSet<Zamowienie_WyrobCukierniczy> Zamowienia_WyrobyCukiernicze { get; set; }
+
 
 
 
@@ -37,8 +39,9 @@ namespace APBD_przykladowe_kol2.Models
             modelBuilder.ApplyConfiguration(new PracownikEfConfiguration());
             modelBuilder.ApplyConfiguration(new ZamowienieEfConfiguration());
             modelBuilder.ApplyConfiguration(new WyrobCukierniczyEfConfiguration());
+            modelBuilder.ApplyConfiguration(new Zamowienie_WyrobCukierniczyEfConfiguration());
 
-            
+
 
 
             //modelbuilder.entity<pracownik>((builder) =>

@@ -21,9 +21,17 @@ namespace APBD_przykladowe_kol2.Configurations
             builder.Property(e => e.Typ).IsRequired().HasMaxLength(40);
 
 
-            //builder.HasMany(e => e.zamowienia_wyrobycukiernicze)
-            //.withone(e => e.wyrobcukierniczy)
-            //.hasforeignkey(e => e.idwyrobucukierniczego);
+            builder.HasMany(e => e.Zamowienia_WyrobyCukiernicze)
+                 .WithOne(e => e.WyrobCukierniczy)
+                 .HasForeignKey(e => e.IdWyrobuCukierniczego);
+
+            var list = new List<WyrobCukierniczy>();
+            int id = 1;
+            list.Add(new WyrobCukierniczy { IdWyrobuCukierniczego = id, Nazwa = "Makowiec", CenaZaSzt = 15, Typ= "Ciasto" });
+            list.Add(new WyrobCukierniczy { IdWyrobuCukierniczego = id+1, Nazwa = "Szarlotka", CenaZaSzt = 20, Typ = "Ciasto" });
+            list.Add(new WyrobCukierniczy { IdWyrobuCukierniczego = id+2, Nazwa = "Beza", CenaZaSzt = 5, Typ = "Ciastko" });
+
+            builder.HasData(list);
         }
 
 

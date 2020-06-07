@@ -16,6 +16,6 @@ namespace APBD_przykladowe_kol2.Models
         public int IdPracownika { get; set; }
         public virtual Pracownik Pracownik { get; set; }
 
-        // public ICollection<Zamowienie_WyrobCukierniczy> Zamowienia_WyrobyCukiernicze { get; set; }
+        public ICollection<Zamowienie_WyrobCukierniczy> Zamowienia_WyrobyCukiernicze { get; set; }
     }
 }

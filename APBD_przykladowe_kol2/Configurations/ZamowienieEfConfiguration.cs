@@ -25,9 +25,20 @@ namespace APBD_przykladowe_kol2.Configurations
 
 
 
-            //builder.HasMany(e => e.zamowienia_wyrobycukiernicze)
-            //   .withone(e => e.zamowienie)
-            //   .hasforeignkey(e => e.idzamowienia);
+            builder.HasMany(e => e.Zamowienia_WyrobyCukiernicze)
+               .WithOne(e => e.Zamowienie)
+               .HasForeignKey(e => e.IdZamowienia);
+
+
+            var list = new List<Zamowienie>();
+            int id = 1;
+            list.Add(new Zamowienie { IdZamowienia= id, IdPracownika = 1, IdKlienta = 1, DataPrzyjecia =DateTime.Now, DataRealizacji=DateTime.Today });
+            list.Add(new Zamowienie { IdZamowienia = id+1, IdPracownika = 2, IdKlienta = 2, DataPrzyjecia = DateTime.Now, DataRealizacji = DateTime.Today, Uwagi="świeże ma być" });
+            list.Add(new Zamowienie { IdZamowienia = id+2, IdPracownika = 2, IdKlienta = 3, DataPrzyjecia = DateTime.Now, DataRealizacji = DateTime.Today });
+
+            builder.HasData(list);
+
+
         }
 
 

@@ -22,6 +22,15 @@ namespace APBD_przykladowe_kol2.Configurations
             builder.HasMany(e => e.Zamowienia)
                     .WithOne(e => e.Pracownik)
                     .HasForeignKey(e => e.IdPracownika);
+
+
+            var list = new List<Pracownik>();
+            int id = 1;
+            list.Add(new Pracownik { IdPracownik = id, Imie = "Alex", Nazwisko = "Nixon" });
+            list.Add(new Pracownik { IdPracownik = id + 1, Imie = "Anna", Nazwisko = "Jarawska" });
+            list.Add(new Pracownik { IdPracownik = id + 2, Imie = "Jan", Nazwisko = "Kox" });
+
+            builder.HasData(list);
         }
 
 

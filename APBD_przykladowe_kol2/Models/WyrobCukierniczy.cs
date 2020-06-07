@@ -12,6 +12,6 @@ namespace APBD_przykladowe_kol2.Models
         public string Nazwa { get; set; }
         public float CenaZaSzt { get; set; }
         public string Typ { get; set; }
-        //  public ICollection<Zamowienie_WyrobCukierniczy> Zamowienia_WyrobyCukiernicze { get; set; }
+        public ICollection<Zamowienie_WyrobCukierniczy> Zamowienia_WyrobyCukiernicze { get; set; }
     }
 }

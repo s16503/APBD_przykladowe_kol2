@@ -4,14 +4,16 @@ using APBD_przykladowe_kol2.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace APBD_przykladowe_kol2.Migrations
 {
     [DbContext(typeof(ZamowieniaDbContext))]
-    partial class ZamowieniaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200607130549_Zamowienie_WyrobCukierniczyMigration")]
+    partial class Zamowienie_WyrobCukierniczyMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,26 +41,6 @@ namespace APBD_przykladowe_kol2.Migrations
                     b.HasKey("IdKlient");
 
                     b.ToTable("Klienci");
-
-                    b.HasData(
-                        new
-                        {
-                            IdKlient = 1,
-                            Imie = "Jan",
-                            Nazwisko = "Kowalski"
-                        },
-                        new
-                        {
-                            IdKlient = 2,
-                            Imie = "Andrzej",
-                            Nazwisko = "Nowak"
-                        },
-                        new
-                        {
-                            IdKlient = 3,
-                            Imie = "Łucja",
-                            Nazwisko = "Kawka"
-                        });
                 });
 
             modelBuilder.Entity("APBD_przykladowe_kol2.Models.Pracownik", b =>
@@ -81,26 +63,6 @@ namespace APBD_przykladowe_kol2.Migrations
                     b.HasKey("IdPracownik");
 
                     b.ToTable("Pracownicy");
-
-                    b.HasData(
-                        new
-                        {
-                            IdPracownik = 1,
-                            Imie = "Alex",
-                            Nazwisko = "Nixon"
-                        },
-                        new
-                        {
-                            IdPracownik = 2,
-                            Imie = "Anna",
-                            Nazwisko = "Jarawska"
-                        },
-                        new
-                        {
-                            IdPracownik = 3,
-                            Imie = "Jan",
-                            Nazwisko = "Kox"
-                        });
                 });
 
             modelBuilder.Entity("APBD_przykladowe_kol2.Models.WyrobCukierniczy", b =>
@@ -126,29 +88,6 @@ namespace APBD_przykladowe_kol2.Migrations
                     b.HasKey("IdWyrobuCukierniczego");
 
                     b.ToTable("WyrobyCukiernicze");
-
-                    b.HasData(
-                        new
-                        {
-                            IdWyrobuCukierniczego = 1,
-                            CenaZaSzt = 15f,
-                            Nazwa = "Makowiec",
-                            Typ = "Ciasto"
-                        },
-                        new
-                        {
-                            IdWyrobuCukierniczego = 2,
-                            CenaZaSzt = 20f,
-                            Nazwa = "Szarlotka",
-                            Typ = "Ciasto"
-                        },
-                        new
-                        {
-                            IdWyrobuCukierniczego = 3,
-                            CenaZaSzt = 5f,
-                            Nazwa = "Beza",
-                            Typ = "Ciastko"
-                        });
                 });
 
             modelBuilder.Entity("APBD_przykladowe_kol2.Models.Zamowienie", b =>
@@ -181,33 +120,6 @@ namespace APBD_przykladowe_kol2.Migrations
                     b.HasIndex("IdPracownika");
 
                     b.ToTable("Zamowienia");
-
-                    b.HasData(
-                        new
-                        {
-                            IdZamowienia = 1,
-                            DataPrzyjecia = new DateTime(2020, 6, 7, 15, 23, 3, 187, DateTimeKind.Local).AddTicks(3293),
-                            DataRealizacji = new DateTime(2020, 6, 7, 0, 0, 0, 0, DateTimeKind.Local),
-                            IdKlienta = 1,
-                            IdPracownika = 1
-                        },
-                        new
-                        {
-                            IdZamowienia = 2,
-                            DataPrzyjecia = new DateTime(2020, 6, 7, 15, 23, 3, 194, DateTimeKind.Local).AddTicks(3450),
-                            DataRealizacji = new DateTime(2020, 6, 7, 0, 0, 0, 0, DateTimeKind.Local),
-                            IdKlienta = 2,
-                            IdPracownika = 2,
-                            Uwagi = "świeże ma być"
-                        },
-                        new
-                        {
-                            IdZamowienia = 3,
-                            DataPrzyjecia = new DateTime(2020, 6, 7, 15, 23, 3, 194, DateTimeKind.Local).AddTicks(4106),
-                            DataRealizacji = new DateTime(2020, 6, 7, 0, 0, 0, 0, DateTimeKind.Local),
-                            IdKlienta = 3,
-                            IdPracownika = 2
-                        });
                 });
 
             modelBuilder.Entity("APBD_przykladowe_kol2.Models.Zamowienie_WyrobCukierniczy", b =>
@@ -230,26 +142,6 @@ namespace APBD_przykladowe_kol2.Migrations
                     b.HasIndex("IdWyrobuCukierniczego");
 
                     b.ToTable("Zamowienia_WyrobyCukiernicze");
-
-                    b.HasData(
-                        new
-                        {
-                            IdZamowienia = 3,
-                            IdWyrobuCukierniczego = 1,
-                            Ilosc = 2
-                        },
-                        new
-                        {
-                            IdZamowienia = 2,
-                            IdWyrobuCukierniczego = 2,
-                            Ilosc = 4
-                        },
-                        new
-                        {
-                            IdZamowienia = 1,
-                            IdWyrobuCukierniczego = 3,
-                            Ilosc = 1
-                        });
                 });
 
             modelBuilder.Entity("APBD_przykladowe_kol2.Models.Zamowienie", b =>
