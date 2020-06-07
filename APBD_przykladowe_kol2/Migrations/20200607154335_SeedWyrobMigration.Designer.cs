@@ -4,14 +4,16 @@ using APBD_przykladowe_kol2.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace APBD_przykladowe_kol2.Migrations
 {
     [DbContext(typeof(ZamowieniaDbContext))]
-    partial class ZamowieniaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200607154335_SeedWyrobMigration")]
+    partial class SeedWyrobMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -30,7 +30,7 @@ namespace APBD_przykladowe_kol2.Configurations
             list.Add(new WyrobCukierniczy { IdWyrobuCukierniczego = id, Nazwa = "Makowiec", CenaZaSzt = 15, Typ= "Ciasto" });
             list.Add(new WyrobCukierniczy { IdWyrobuCukierniczego = id+1, Nazwa = "Szarlotka", CenaZaSzt = 20, Typ = "Ciasto" });
             list.Add(new WyrobCukierniczy { IdWyrobuCukierniczego = id+2, Nazwa = "Beza", CenaZaSzt = 5, Typ = "Ciastko" });
-
+            list.Add(new WyrobCukierniczy { IdWyrobuCukierniczego = id + 3, Nazwa = "Tort urodzinowy imienny", CenaZaSzt = 120, Typ = "Tort" });
             builder.HasData(list);
         }
 
