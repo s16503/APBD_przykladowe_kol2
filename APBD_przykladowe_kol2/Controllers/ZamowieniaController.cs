@@ -24,10 +24,21 @@ namespace APBD_przykladowe_kol2.Controllers
 
 
         [HttpGet]
-        public IActionResult GetOrders()
-        {
-            return Ok(_service.GetAllOrders());
+        public IActionResult GetClientOrders(NazwiskoRequest req)
+        {                    
+            try
+            {
+
+                return Ok(_service.GetClientOrders(req));
+
+            }catch(Exception ex)
+            {
+                return Ok(ex.Message);
+            }
+
         }
+
+
 
        
 

@@ -24,10 +24,10 @@ namespace APBD_przykladowe_kol2.Controllers
         [HttpPost("{id}/orders")]
         public IActionResult AddZamowienie(int id, AddOrderRequest req)
         {
+                return Ok(_service.AddZamowienie(req, id));
 
             try
             {
-                return Ok(_service.AddZamowienie(req, id));
             }
             catch (Exception ex)
             {

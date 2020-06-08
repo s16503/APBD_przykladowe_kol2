@@ -18,12 +18,89 @@ namespace APBD_przykladowe_kol2.Services
             _context = context;
         }
 
-        public List<Zamowienie> GetAllOrders()
+        public List<GetZamowienieResponse> GetAllOrders()
         {
+            List<GetZamowienieResponse> zamowienia = new List<GetZamowienieResponse>();
+
             var query = _context.Zamowienia.ToList();
 
-            return query;
+            foreach(Zamowienie zam in query)
+            {
+                List<GetWyrobResponse> wyroby = GetWyrobyDlaZamowienia(zam.IdZamowienia);
+
+                zamowienia.Add(new GetZamowienieResponse
+                {
+                    IdKlienta = zam.IdKlienta,
+                    IdPracownika = zam.IdPracownika,
+                    IdZamowienia = zam.IdZamowienia,
+                    Uwagi= zam.Uwagi,
+                    Wyrob = wyroby
+                });
+            }
+
+            return zamowienia;
         }
+
+        public List<GetWyrobResponse> GetWyrobyDlaZamowienia(int id_Zamowienia)
+        {
+            //List<GetWyrobResponse> list = new List<GetWyrobResponse>();
+
+            Zamowienie zamowienie = _context.Zamowienia.Where(z => z.IdZamowienia == id_Zamowienia).FirstOrDefault();
+
+            if (zamowienie == null)
+                throw new Exception("brak zamowienia o takim id");
+
+            List<GetWyrobResponse> list = (from w in _context.WyrobyCukiernicze
+                            join
+                            zw in _context.Zamowienia_WyrobyCukiernicze
+                            on w.IdWyrobuCukierniczego
+                            equals zw.IdWyrobuCukierniczego
+                            where zw.IdZamowienia == id_Zamowienia
+                            select new GetWyrobResponse
+                            {
+                               IdWyrobu = w.IdWyrobuCukierniczego,
+                               Nazwa = w.Nazwa,
+                               Ilosc = zw.Ilosc,
+                               Uwagi = zw.Uwagi
+                            }).ToList();
+
+            return list;
+        }
+        public List<GetZamowienieResponse> GetClientOrders(NazwiskoRequest req)
+        {
+            var klient = _context.Klienci.Where(k=>k.Nazwisko == req.Nazwisko).FirstOrDefault();
+
+            if(klient == null)         
+              return GetAllOrders();
+            
+           
+            var idK = klient.IdKlient;
+
+
+            List<GetZamowienieResponse> zamowienia = new List<GetZamowienieResponse>();
+
+            var zamowienia_Klienta = _context.Zamowienia.Where(z=>z.IdKlienta == idK).ToList();
+
+            foreach (Zamowienie zam in zamowienia_Klienta)
+            {
+                List<GetWyrobResponse> wyroby = GetWyrobyDlaZamowienia(zam.IdZamowienia);
+
+                zamowienia.Add(new GetZamowienieResponse
+                {
+                    IdKlienta = zam.IdKlienta,
+                    IdPracownika = zam.IdPracownika,
+                    IdZamowienia = zam.IdZamowienia,
+                    Uwagi = zam.Uwagi,
+                    Wyrob = wyroby
+                });
+            }
+
+                      
+           return zamowienia;
+        }
+
+
+
 
         public GetZamowienieResponse AddZamowienie(AddOrderRequest request, int id)
         {
@@ -72,7 +149,7 @@ namespace APBD_przykladowe_kol2.Services
                 {
                     _context.Remove(order);
                     _context.SaveChanges();
-                    throw new Exception("nie ma wyrobu");
+                    throw new Exception("nie ma wyrobu o nazwie: " + wyrob.Nazwa );
                 }
 
                 Zamowienie_WyrobCukierniczy zamowienie_wyrob = new Zamowienie_WyrobCukierniczy
@@ -82,12 +159,14 @@ namespace APBD_przykladowe_kol2.Services
                     Ilosc = wyrob.Ilosc,
                     Uwagi = wyrob.Uwagi
                 };
+                _context.Zamowienia_WyrobyCukiernicze.Add(zamowienie_wyrob);
 
-                _context.Add(order);
+               
                 list.Add(new GetWyrobResponse { IdWyrobu = w.IdWyrobuCukierniczego, Ilosc=wyrob.Ilosc,Nazwa=wyrob.Nazwa, Uwagi=wyrob.Uwagi});
-                response.Wyrob = list;
             }
+                response.Wyrob = list;
 
+            _context.SaveChanges();
             return response;
         }
     }
